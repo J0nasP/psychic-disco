@@ -13,56 +13,99 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Viseble History',
       theme: ThemeData(
-        brightness: Brightness.dark,
         primaryColor: Colors.deepPurple,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Home Page'),
+      home: MyHomePage(),
     );
   }
 }
 
+class MyAppState extends ChangeNotifier {
+  GlobalKey? historyListKey;
+}
+
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  var selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+    Widget page;
+    switch (selectedIndex) {
+      case 0:
+        page = LoginPage();
+        break;
+      case 1:
+        page = MyCustomForm();
+        break;
+      default:
+        throw UnimplementedError('no Widget for $selectedIndex');
+    }
+
+    return page;
+  }
+}
+
+class LoginPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ElevatedButton(
+          onPressed: () {},
+          child: Text('login'),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      ],
+    );
+  }
+}
+
+class MyCustomForm extends StatefulWidget {
+  const MyCustomForm({super.key});
+
+  @override
+  MyCustomFormState createState() {
+    return MyCustomFormState();
+  }
+}
+
+class MyCustomFormState extends State<MyCustomForm> {
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          TextFormField(
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter some text';
+              }
+              return null;
+            },
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            child: ElevatedButton(
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Proccessing Date')),
+                  );
+                }
+              },
+              child: const Text('Submit'),
+            ),
+          ),
+        ],
       ),
     );
   }
