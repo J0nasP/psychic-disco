@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:form_validator/form_validator.dart';
 
 class MyCustomForm extends StatefulWidget {
   const MyCustomForm({super.key});
@@ -12,6 +13,8 @@ class MyCustomForm extends StatefulWidget {
 class MyCustomFormState extends State<MyCustomForm> {
   final _formKey = GlobalKey<FormState>();
 
+  final usernameValidation = ValidationBuilder().email().maxLength(10).build();
+  final passwordValidation = ValidationBuilder().minLength(4).build();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,24 +28,14 @@ class MyCustomFormState extends State<MyCustomForm> {
                 border: OutlineInputBorder(),
                 labelText: 'Username',
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter something';
-                }
-                return null;
-              },
+              validator: usernameValidation,
             ),
             TextFormField(
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Password',
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter something';
-                }
-                return null;
-              },
+              validator: passwordValidation,
             ),
             ElevatedButton(
                 onPressed: () {
