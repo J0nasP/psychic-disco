@@ -13,11 +13,12 @@ class MyCustomForm extends StatefulWidget {
 class MyCustomFormState extends State<MyCustomForm> {
   final _formKey = GlobalKey<FormState>();
 
-  final usernameValidation = ValidationBuilder().email().maxLength(10).build();
+  final usernameValidation = ValidationBuilder().email().build();
   final passwordValidation = ValidationBuilder().minLength(4).build();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Form(
         key: _formKey,
         child: Column(
