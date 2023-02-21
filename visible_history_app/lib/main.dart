@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'login_form.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,57 +14,52 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Viseble History',
       theme: ThemeData(
-        brightness: Brightness.dark,
         primaryColor: Colors.deepPurple,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Home Page'),
+      home: MyHomePage(),
     );
   }
 }
 
+class MyAppState extends ChangeNotifier {
+  GlobalKey? historyListKey;
+}
+
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  var selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+    Widget page;
+    switch (selectedIndex) {
+      case 0:
+        page = MyCustomForm();
+        break;
+      default:
+        throw UnimplementedError('no Widget for $selectedIndex');
+    }
+
+    return page;
+  }
+}
+
+class LoginPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ElevatedButton(
+          onPressed: () {},
+          child: Text('login'),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      ],
     );
   }
 }
