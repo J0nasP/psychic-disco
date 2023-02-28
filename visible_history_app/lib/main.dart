@@ -48,18 +48,3 @@ class _MyHomePageState extends State<MyHomePage> {
     return page;
   }
 }
-
-class LoginPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ElevatedButton(
-          onPressed: () {},
-          child: Text('login'),
-        ),
-      ],
-    );
-  }
-}
