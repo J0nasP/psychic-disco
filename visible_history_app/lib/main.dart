@@ -15,7 +15,9 @@ class MyApp extends StatelessWidget {
       title: 'Viseble History',
       theme: ThemeData(
         primaryColor: Colors.deepPurple,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.deepPurple,
+        ),
       ),
       home: MyHomePage(),
     );

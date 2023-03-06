@@ -19,10 +19,6 @@ class MyCustomFormState extends State<MyCustomForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.deepPurple,
-      appBar: AppBar(
-        title: const Text('Login'),
-        centerTitle: true,
-      ),
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
@@ -34,9 +30,12 @@ class MyCustomFormState extends State<MyCustomForm> {
                 Image.asset('assets/images/png/logo-no-background.png'),
                 TextFormField(
                   decoration: const InputDecoration(
-                      border: OutlineInputBorder(), labelText: 'Username'),
+                    border: OutlineInputBorder(),
+                    labelText: 'Username',
+                  ),
                   autofocus: true,
                   validator: usernameValidation,
+                  style: TextStyle(color: Colors.yellow),
                 ),
                 SizedBox(
                   height: 17,
@@ -47,6 +46,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                     labelText: 'Password',
                   ),
                   validator: passwordValidation,
+                  style: TextStyle(color: Colors.yellow),
                 ),
                 ElevatedButton(
                     onPressed: () {
