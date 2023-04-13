@@ -1,0 +1,38 @@
+* 	 (HEAD -> login_page, origin/login_page) minor tweaks to the styling
+* 	 Added the rigth asset path to image
+* 	 (origin/main, origin/HEAD, main) removed initial training button
+| * 	 (origin/oauth_login_page, oauth_login_page) Created 0auth folder, implementation still needs work, so it is on hold for now
+| * 	 Added OAuth and google fonts libraries and the dependencies associated with it
+|/  
+*   	 Merge pull request #2 from J0nasP/login_page
+|\  
+| * 	 added .env to the gitignore
+| * 	 added dotenv repo that enables you to use enviromental vars in the project
+| * 	 added linting rules app bar
+| * 	 added validation module to login form
+| * 	 Created form with username field, password field and submit button
+| * 	 Init creation off branch
+|/  
+* 	 Delete visible_history_app/build directory
+| *   	 (refs/stash) WIP on login_in_page_cretion: a18b815 Moved login widget to seperate file
+| |\  
+| | * 	 index on login_in_page_cretion: a18b815 Moved login widget to seperate file
+| |/  
+| * 	 (origin/login_in_page_cretion, login_in_page_cretion) Moved login widget to seperate file
+| * 	 minor changes trying to add form to the login page
+| * 	 Added linter options for easier development
+| * 	 master pull
+|/  
+*   	 Merge pull request #1 from J0nasP/theme_creation
+|\  
+| * 	 (origin/theme_creation, theme_creation) spelling control
+| * 	 changed gitignore
+| * 	 added new temp launcher logo
+| * 	 Created assets folder and moved image folder
+| * 	 added logo files and creted image  folder
+| * 	 removed initial comments
+| * 	 Changed primary color and brigthness
+|/  
+* 	 updated gitignore
+* 	 Created flutter aplication
+* 	 Create README.md
