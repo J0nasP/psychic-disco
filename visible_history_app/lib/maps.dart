@@ -97,6 +97,9 @@ class _MyCustomMapState extends State<MyCustomMap> {
           elevation: 2,
           backgroundColor: Colors.deepPurple,
           centerTitle: true,
+          leading: BackButton(
+            onPressed: () => Navigator.pop(context),
+          ),
         ),
         body: GoogleMap(
           mapType: MapType.hybrid,

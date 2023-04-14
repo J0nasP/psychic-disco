@@ -37,7 +37,6 @@ class MyCustomFormState extends State<MyCustomForm> {
                     border: OutlineInputBorder(),
                     labelText: 'Username',
                   ),
-                  autofocus: true,
                   validator: usernameValidation,
                   style: TextStyle(color: Colors.yellow),
                 ),
@@ -45,6 +44,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                   height: 17,
                 ),
                 TextFormField(
+                  obscureText: true,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Password',
@@ -58,6 +58,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Processing...')),
                         );
+                        Navigator.pushNamed(context, '/map');
                       }
                     },
                     child: const Text('Submit')),

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:visible_history_app/src/geoLocation.dart';
 import 'login_form.dart';
 import 'maps.dart';
-import 'package:geolocator/geolocator.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,34 +20,11 @@ class MyApp extends StatelessWidget {
           seedColor: Colors.deepPurple,
         ),
       ),
-      home: MyHomePage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const MyCustomForm(),
+        '/map': (context) => const MyCustomMap(),
+      },
     );
-  }
-}
-
-class MyAppState extends ChangeNotifier {
-  GlobalKey? historyListKey;
-}
-
-class MyHomePage extends StatefulWidget {
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  var selectedIndex = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    Widget page;
-    switch (selectedIndex) {
-      case 0:
-        page = MyCustomForm();
-        break;
-      default:
-        throw UnimplementedError('no Widget for $selectedIndex');
-    }
-
-    return page;
   }
 }
