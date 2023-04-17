@@ -34,23 +34,35 @@ class MyCustomFormState extends State<MyCustomForm> {
                 Image.asset('assets/images/png/logo-no-background.png'),
                 TextFormField(
                   decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.white,
+                        width: 1.0,
+                      ),
+                    ),
                     labelText: 'Username',
+                    labelStyle: TextStyle(color: Colors.white),
                   ),
                   validator: usernameValidation,
-                  style: TextStyle(color: Colors.yellow),
+                  style: TextStyle(color: Colors.white),
                 ),
                 SizedBox(
                   height: 17,
                 ),
                 TextFormField(
                   obscureText: true,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.white,
+                        width: 1.0,
+                      ),
+                    ),
                     labelText: 'Password',
+                    labelStyle: TextStyle(color: Colors.white),
                   ),
                   validator: passwordValidation,
-                  style: TextStyle(color: Colors.yellow),
+                  style: TextStyle(color: Colors.white),
                 ),
                 ElevatedButton(
                     onPressed: () {
