@@ -30,7 +30,7 @@ class _MyCustomMapState extends State<MyCustomMap> {
     if (serviceStatus) {
       permission = await Geolocator.checkPermission();
 
-      if (permission == await LocationPermission.denied) {
+      if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
 
         if (permission == LocationPermission.denied) {
