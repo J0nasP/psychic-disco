@@ -3,6 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'src/locations.dart' as locations;
 import 'dart:async';
 import 'package:geolocator/geolocator.dart';
+import 'package:location/location.dart' as new_location;
 
 class MyCustomMap extends StatefulWidget {
   const MyCustomMap({super.key});
@@ -12,15 +13,17 @@ class MyCustomMap extends StatefulWidget {
 }
 
 class _MyCustomMapState extends State<MyCustomMap> {
+  final Completer<GoogleMapController> _controller = Completer();
   late Position position;
   late StreamSubscription<Position> positionStream;
   late LocationPermission permission;
   bool serviceStatus = false;
   bool hasPermission = false;
   double long = 0, lat = 0;
-
+  new_location.LocationData? currentLocation;
   @override
   void initState() {
+    getCurrentLocation();
     checkGps();
     super.initState();
   }
@@ -88,6 +91,37 @@ class _MyCustomMapState extends State<MyCustomMap> {
     });
   }
 
+  void getCurrentLocation() async {
+    new_location.Location location = new_location.Location();
+
+    location.getLocation().then(
+      (location) {
+        currentLocation = location;
+      },
+    );
+
+    GoogleMapController googleMapController = await _controller.future;
+
+    location.onLocationChanged.listen(
+      (newLoc) {
+        currentLocation = newLoc;
+
+        googleMapController.animateCamera(
+          CameraUpdate.newCameraPosition(
+            CameraPosition(
+              zoom: 20,
+              target: LatLng(
+                newLoc.latitude!,
+                newLoc.longitude!,
+              ),
+            ),
+          ),
+        );
+        setState(() {});
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -101,20 +135,33 @@ class _MyCustomMapState extends State<MyCustomMap> {
             onPressed: () => Navigator.pop(context),
           ),
         ),
-        body: GoogleMap(
-          mapType: MapType.hybrid,
-          myLocationEnabled: true,
-          onMapCreated: _onMapCreated,
-          initialCameraPosition: CameraPosition(
-            target: LatLng(position.latitude, position.longitude),
-            //the zoom works as 0 is the screen width of the world is 256
-            //zoom 1.0 the screen width of the world is: 2¹ * 256
-            //zoom 2.0 the screen width of the world is: 2² * 256
-            // and so on which means: at zoom 8.0 the width is: 2⁸ * 256
-            zoom: 20.0,
-          ),
-          markers: _markers.values.toSet(),
-        ),
+        body: currentLocation == null
+            ? const Center(
+                child: Text(
+                  "Loading",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+              )
+            : GoogleMap(
+                mapType: MapType.hybrid,
+                myLocationEnabled: true,
+                onMapCreated: _onMapCreated,
+                initialCameraPosition: CameraPosition(
+                  target: LatLng(
+                    currentLocation!.latitude!,
+                    currentLocation!.longitude!,
+                  ),
+                  //the zoom works as 0 is the screen width of the world is 256
+                  //zoom 1.0 the screen width of the world is: 2¹ * 256
+                  //zoom 2.0 the screen width of the world is: 2² * 256
+                  // and so on which means: at zoom 8.0 the width is: 2⁸ * 256
+                  zoom: 18.0,
+                ),
+                markers: _markers.values.toSet(),
+              ),
       ),
     );
   }

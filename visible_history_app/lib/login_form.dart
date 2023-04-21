@@ -70,7 +70,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Processing...')),
                         );
-                        Navigator.pushNamed(context, '/map');
+                        Navigator.pushNamed(context, '/user');
                       }
                     },
                     child: const Text('Submit')),

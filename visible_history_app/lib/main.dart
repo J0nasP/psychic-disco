@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'login_form.dart';
 import 'maps.dart';
+import 'user_page.dart';
+import 'options.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,10 +22,12 @@ class MyApp extends StatelessWidget {
           seedColor: Colors.deepPurple,
         ),
       ),
-      initialRoute: '/',
+      initialRoute: '/user',
       routes: {
         '/': (context) => const MyCustomForm(),
         '/map': (context) => const MyCustomMap(),
+        '/user': (context) => const CustomUser(),
+        '/options': (context) => const CustomOptions(),
       },
     );
   }
